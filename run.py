@@ -1,24 +1,22 @@
 import os
 
-from llamaapi import LlamaAPI
-from langchain_experimental.llms import ChatLlamaAPI
 from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from langchain.chains import LLMChain
-
-from config import OPENAI_API_KEY, LLAMA_API
+from langchain.llms import HuggingFaceHub
+from config import hf_token_read
 from utils import CustomPromptTemplate, CustomOutputParser
 
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token_read
 
-os.environ['OPENAI_API_KEY'] = OPENAI_API_KEY
-
-llama = LlamaAPI(LLAMA_API)
-model = ChatLlamaAPI(client=llama)
+model = HuggingFaceHub(
+    repo_id='zkv/llama-2-7b-chat-hf-air-assistant', model_kwargs={"temperature": 0.5, "max_length": 64}
+)
 
 tools = [
     Tool(
         name='AirSearch',
-        func=lambda x: 'Airbus #7053, S7 #8095, NorthWind # 4563',
+        func=lambda x: 'Airbus #7053, S7 #8095, NorthWind # 4563',  # Mock function
         description="useful for when you need flights for the user after asked him"
     )
 ]
