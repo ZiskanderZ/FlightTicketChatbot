@@ -1,0 +1,17 @@
+transformers
+huggingface_hub
+accelerate
+bitsandbytes
+datasets
+peft
+trl
+evaluate
+langchain 
+docarray 
+tiktoken 
+openai 
+llamaapi 
+langchain_experimental 
+chromadb 
+langchainhub 
+faiss-cpu
