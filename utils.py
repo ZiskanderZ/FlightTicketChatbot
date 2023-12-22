@@ -1,10 +1,13 @@
+from typing import List, Union
+from tqdm.auto import tqdm
+import torch
+from transformers import  BitsAndBytesConfig, AutoModelForCausalLM, AutoTokenizer
+
 from langchain_core.agents import AgentAction, AgentFinish
 from langchain.agents.agent import AgentOutputParser
 from langchain.prompts import StringPromptTemplate
 from langchain.schema import AgentAction, AgentFinish
 from langchain.agents import Tool
-from typing import List, Union
-from tqdm.auto import tqdm
 
 class Speech:
 
