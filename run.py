@@ -1,17 +1,17 @@
 import os
 
+from llamaapi import LlamaAPI
+from langchain_experimental.llms import ChatLlamaAPI
 from langchain.agents import Tool, AgentExecutor, LLMSingleActionAgent
 from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from langchain.chains import LLMChain
-from langchain.llms import HuggingFaceHub
-from config import hf_token_read
+from config import hf_token_read, LLAMA_API
 from utils import CustomPromptTemplate, CustomOutputParser
 
 os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token_read
 
-model = HuggingFaceHub(
-    repo_id='zkv/llama-2-7b-chat-hf-air-assistant', model_kwargs={"temperature": 0.5, "max_length": 64}
-)
+llama = LlamaAPI(LLAMA_API)
+model = ChatLlamaAPI(client=llama)
 
 tools = [
     Tool(
@@ -59,10 +59,9 @@ agent = LLMSingleActionAgent(
     allowed_tools=tool_names
 )
 memory=ConversationBufferWindowMemory(k=10)
-agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=True, memory=memory)
+agent_executor = AgentExecutor.from_agent_and_tools(agent=agent, tools=tools, verbose=False, memory=memory)
 
-for _ in range(10):
+print('This is an assistant that will help you book flights. Write something!')
+while True:
     q = input()
     print(agent_executor.run(q))
-
-

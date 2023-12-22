@@ -100,7 +100,7 @@ class AllConversations:
     def __repr__(self) -> str:
         return str(self.data)
 
-# Set up a prompt template
+
 class CustomPromptTemplate(StringPromptTemplate):
     # The template to use
     template: str
@@ -126,16 +126,6 @@ class CustomPromptTemplate(StringPromptTemplate):
 
 class CustomOutputParser(AgentOutputParser):
 
-    def get_right_output(self, string):
-        lst = string.split("\n")
-        print(lst)
-        for i in lst:
-            if ('Observation' in i or 'Action' in i) and "None" not in i:
-                if len(i) != 0:
-                    return lst[0] + i
-        return lst[0]
-
-
     def parse(self, llm_output: str) -> Union[AgentAction, AgentFinish]:
         answer = llm_output
 
@@ -146,7 +136,7 @@ class CustomOutputParser(AgentOutputParser):
             log=llm_output,
         )
 
-def format_promt(inp, out, history):
+def format_promt(inp: str, out: str, history: str) -> str:
   return f'''
 [INST] ### Instruction: You are a helpful assistant that helps user book air ticket. Consider the chat history, which is presented below. Input it is customer message
 
@@ -159,7 +149,7 @@ def format_promt(inp, out, history):
 
 '''
 
-def create_model_and_tokenizer(model_name):
+def create_model_and_tokenizer(model_name: str):
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",
@@ -180,7 +170,7 @@ def create_model_and_tokenizer(model_name):
 
     return model, tokenizer
 
-def collate(ex):
+def collate(ex: str) -> [list, list]:
     inps, targets = [], []
     for i in ex:
         inp, target = i.split('[/INST]')
