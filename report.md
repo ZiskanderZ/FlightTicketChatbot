@@ -43,7 +43,7 @@
 Обучение проводил в `collab` с квантизацией модели. В качестве входных данных использовал: общую системную инструкцию +  историю чата + последнее сообщение пользователя. В качестве таргета - текст Ассистента последующий за сообщением пользователя. Использовал только небольшие части датасета для обучения (256), валидации (64) и теста (128). Т.к. обучение модели долгое и сложное из-за особенностей работы с `collab` (фиксированнаое время работы и ограниченное использование ресурсов).
 
 Обучение проводилось 3 эпохи, т.к. дальнейшее обучение приводило к увеличению `Validation Loss`.
-Для оценки дообучения вычислил метрику `BLEU` на случайно отобранных примеров из тестовой выборки до обучения модели и после. Результаты улучшились и приведены в Таблице 1. Низкие значения метрики можно объяснить тем, что данная метрика оценивает совпадение между настоящим ответом пользователя и сгенерированным ответом Ассистента и не учитывает смысловой контекст. Но видно, что результаты после дообучения улучшились, следовательно, дальнейшее дообучение с увеличением количества примеров в обучающей выборке являяется перспективным.
+Для оценки дообучения вычислил метрику `BLEU` на случайно отобранных примеров из тестовой выборки до обучения модели и после. Результаты улучшились и добавлены в Таблицу 1. Также в таблицу добавлены значения метрик существующих решений. Низкие значения метрики для `llama` можно объяснить тем, что модель обучалась на датасете `AirDialogue` малое количество времени. Но видно, что результаты после дообучения улучшились, следовательно, дальнейшее дообучение с увеличением количества примеров в обучающей выборке являяется перспективным.
 После дообучения выложил модель в `hugging face`. [Ссылка на модель](https://huggingface.co/zkv/llama-2-7b-chat-hf-assistant-air)
 
 **Таблица 1**
@@ -77,19 +77,19 @@
 
 ## Список литературы
 
-1. [End-to-end memory networks](https://proceedings.neurips.cc/paper_files/paper/2015/hash/8fb21ee7a2207526da55a679f0332de2-Abstract.html)
-2. [Effectively incorporating knowledge bases into end-to-end task-oriented dialog systems](https://arxiv.org/abs/1804.08217)
+1. [End-to-end memory networks](https://proceedings.neurips.cc/paper_files/paper/2015/file/8fb21ee7a2207526da55a679f0332de2-Paper.pdf)
+2. [Effectively incorporating knowledge bases into end-to-end task-oriented dialog systems](https://arxiv.org/pdf/1804.08217.pdf)
 3. [Global-to-local memory pointer networks for
-task-oriented dialogue](https://arxiv.org/abs/1901.04713)
+task-oriented dialogue](https://arxiv.org/pdf/1901.04713.pdf)
 4. [Creating natural dialogs in the carnegie mellon communicator system](https://www.academia.edu/download/37306797/air2.pdf)
 5. [Recent Advances and Challenges in Task-oriented Dialog Systems](https://www.academia.edu/download/37306797/air2.pdf)
-6. [Hierarchical Transformer for Task Oriented Dialog Systems](https://arxiv.org/abs/2011.08067)
+6. [Hierarchical Transformer for Task Oriented Dialog Systems](https://arxiv.org/pdf/2011.08067.pdf)
 7. [Domain-independent User Simulation with Transformers for
-Task-oriented Dialogue Systems](https://arxiv.org/abs/2106.08838)
-8. [AirDialogue: An Environment for Goal-Oriented Dialogue Research](https://aclanthology.org/D18-1419/?source=post_page---------------------------)
+Task-oriented Dialogue Systems](https://arxiv.org/pdf/2106.08838.pdf)
+8. [AirDialogue: An Environment for Goal-Oriented Dialogue Research](https://docs.yandex.ru/docs/view?tm=1704714245&tld=ru&lang=en&name=D18-1419.pdf&text=AirDialogue%3A%20An%20Environment%20for%20Goal-Oriented%20Dialogue%20Research&url=https%3A%2F%2Faclanthology.org%2FD18-1419.pdf&lr=43&mime=pdf&l10n=ru&sign=6e2f2de490d406b2a79a4caafea0c96a&keyno=0&nosw=1&serpParams=tm%3D1704714245%26tld%3Dru%26lang%3Den%26name%3DD18-1419.pdf%26text%3DAirDialogue%253A%2BAn%2BEnvironment%2Bfor%2BGoal-Oriented%2BDialogue%2BResearch%26url%3Dhttps%253A%2F%2Faclanthology.org%2FD18-1419.pdf%26lr%3D43%26mime%3Dpdf%26l10n%3Dru%26sign%3D6e2f2de490d406b2a79a4caafea0c96a%26keyno%3D0%26nosw%3D1)
 9. [AirConcierge: Generating Task-Oriented Dialogue via Efficient
-Large-Scale Knowledge Retrieval](https://aclanthology.org/2020.findings-emnlp.79/)
-10. [Context-Aware Language Modeling for Goal-Oriented Dialogue Systems](https://arxiv.org/abs/2204.10198)
+Large-Scale Knowledge Retrieval](https://docs.yandex.ru/docs/view?tm=1704715491&tld=ru&lang=en&name=2020.findings-emnlp.79.pdf&text=AirConcierge%3A%20Generating%20Task-Oriented%20Dialogue%20via%20Efficient%20Large-Scale%20Knowledge%20Retrieval&url=https%3A%2F%2Faclanthology.org%2F2020.findings-emnlp.79.pdf&lr=43&mime=pdf&l10n=ru&sign=24b8aa502e520a4528ce2e37af1c846e&keyno=0&nosw=1&serpParams=tm%3D1704715491%26tld%3Dru%26lang%3Den%26name%3D2020.findings-emnlp.79.pdf%26text%3DAirConcierge%253A%2BGenerating%2BTask-Oriented%2BDialogue%2Bvia%2BEfficient%2BLarge-Scale%2BKnowledge%2BRetrieval%26url%3Dhttps%253A%2F%2Faclanthology.org%2F2020.findings-emnlp.79.pdf%26lr%3D43%26mime%3Dpdf%26l10n%3Dru%26sign%3D24b8aa502e520a4528ce2e37af1c846e%26keyno%3D0%26nosw%3D1)
+10.   [Context-Aware Language Modeling for Goal-Oriented Dialogue Systems](https://arxiv.org/pdf/2204.10198.pdf)
 
 
 
